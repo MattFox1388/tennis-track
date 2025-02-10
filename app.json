@@ -1,0 +1,57 @@
+{
+  "configVersion": "v2",
+  "app": {
+    "appId": 24479,
+    "appName": "Tennis Tracker",
+    "appType": "app",
+    "version": {
+      "code": 1,
+      "name": "1.0.0"
+    },
+    "icon": "icon.png",
+    "vender": "zepp",
+    "description": "empty application"
+  },
+  "permissions": [
+    "data:os.device.info",
+    "device:os.local_storage",
+    "data:user.hd.calorie"
+  ],
+  "runtime": {
+    "apiVersion": {
+      "compatible": "2.0",
+      "target": "2.0",
+      "minVersion": "2.0"
+    }
+  },
+  "targets": {
+    "amazfit-bip-5": {
+      "module": {
+        "page": {
+          "pages": [
+            "page/index"
+          ]
+        },
+        "app-side": {
+          "path": "app-side/index"
+        },
+        "setting": {
+          "path": "setting/index"
+        }
+      },
+      "platforms": [
+        {
+          "name": "amazfit-bip-5",
+          "deviceSource": 8454401
+        }
+      ],
+      "designWidth": 390
+    }
+  },
+  "i18n": {
+    "en-US": {
+      "appName": "Empty"
+    }
+  },
+  "defaultLanguage": "en-US"
+}
