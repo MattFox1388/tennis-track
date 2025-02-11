@@ -1,4 +1,4 @@
-import { createWidget, widget, align, text_style } from '@zos/ui'
+import { createWidget, widget, align, text_style, event } from '@zos/ui'
 import { push } from '@zos/router'
 
 Page({
@@ -10,28 +10,30 @@ Page({
       h: 320  // Changed to match typical screen dimensions
     })
 
-    createWidget(widget.BUTTON, {
+    var startBtn = createWidget(widget.BUTTON, {
       x: 60,  // Adjusted for smaller screen
       y: 120, // Adjusted for smaller screen
       w: 200, // Adjusted for smaller screen
       h: 40,  // Adjusted for smaller screen
       text: 'Start Match',
-      click_func: () => {
-        push({
-          url: 'page/setup/index'
-        })
-      }
     })
 
-    createWidget(widget.BUTTON, {
+    startBtn.addEventListener(event.CLICK_DOWN, function (info) {
+      push({
+        url: 'page/setup/index'
+      })
+    })
+
+    var exportBtn = createWidget(widget.BUTTON, {
       x: 60,  // Adjusted for smaller screen
       y: 180, // Adjusted for smaller screen
       w: 200, // Adjusted for smaller screen
       h: 40,  // Adjusted for smaller screen
       text: 'Export Match',
-      click_func: () => {
-        // Handle export functionality
-      }
+    })
+
+    exportBtn.addEventListener(event.CLICK_DOWN, function (info) {
+      // Handle export functionality
     })
   }
 })

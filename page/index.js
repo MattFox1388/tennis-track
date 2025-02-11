@@ -1,18 +1,26 @@
 import { getText } from '@zos/i18n'
-import { createWidget, widget, align } from '@zos/ui'
+import { createWidget, widget, align, event } from '@zos/ui'
 
 Page({
   build() {
-    createWidget(widget.TEXT, {
-      x: 96,
+    var btn = createWidget(widget.BUTTON, {
+      x: 60,
       y: 120,
-      w: 128,
-      h: 46,
-      text: 'Hello World',
-      color: 0xffffff,
-      text_size: 32,
-      align_h: align.CENTER_H,
-      align_v: align.CENTER_V
+      w: 200,
+      h: 40,
+      text: 'Go to Setup',
+      // click_func: () => {
+      //   push({
+      //     url: 'page/setup/index'
+      //   })
+      // }
+    })
+
+    btn.addEventListener(event.CLICK_DOWN, function (info) {
+      //Registering event listeners.
+      push({
+        url: 'page/setup/index'
+      })
     })
   }
 })
