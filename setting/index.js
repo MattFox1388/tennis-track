@@ -1,7 +1,20 @@
 import { gettext } from 'i18n'
 
 AppSettingsPage({
-  build() {
-    console.log(gettext('example'))
+  build(props) {
+    return Section({}, [
+      Section(
+        {},
+        Text({
+        })
+        
+      ),
+      Section(
+        {},
+        Text({
+          paragraph: 'Server: ',
+        })
+      )
+    ])
   }
 })

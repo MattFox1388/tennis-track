@@ -1,5 +1,7 @@
 App({
-  globalData: {},
+  globalData: {
+    messageBuilder: null
+  },
   onCreate(options) {
     console.log('app on create invoke')
   },

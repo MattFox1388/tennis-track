@@ -29,7 +29,8 @@
       "module": {
         "page": {
           "pages": [
-            "page/index"
+            "page/index",
+            "page/setup/index"
           ]
         },
         "app-side": {
@@ -45,7 +46,7 @@
           "deviceSource": 8454401
         }
       ],
-      "designWidth": 390
+      "designWidth": 320
     }
   },
   "i18n": {

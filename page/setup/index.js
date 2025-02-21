@@ -1,68 +1,143 @@
-import { createWidget, widget, align, event } from '@zos/ui'
-import { push } from '@zos/router'
-import { messageBuilder } from '@zos/message'
+import { log ,px} from '@zos/utils'
+import { createWidget, widget , prop, event, align, text_style} from '@zos/ui'
+
+const setupLogger = log.getLogger('setup')
 
 Page({
-  state: {
-    format: 'full',
-    server: 'me'
-  },
-
   build() {
-    const container = createWidget(widget.CONTAINER, {
-      x: 0,
-      y: 0,
-      w: 480,
-      h: 480
+ const typeText = createWidget(widget.TEXT, {
+      x: px(0),
+      y: px(0),
+      w: px(120),
+      h: px(180),
+      color: 0xffffff,
+      align_h: align.CENTER_H,
+      align_v: align.CENTER_V,
+      text_style: text_style.NONE,
+      text: 'Type'
     })
 
-    // Format selector
-    createWidget(widget.RADIO_GROUP, {
-      x: 60,
-      y: 100,
-      w: 360,
-      h: 100,
-      select_index: 0,
-      options: ['Full Match', '3rd Set Tiebreak'],
+     const serverText = createWidget(widget.TEXT, {
+      x: px(110),
+      y: px(0),
+      w: px(120),
+      h: px(180),
+      color: 0xffffff,
+      align_h: align.CENTER_H,
+      align_v: align.CENTER_V,
+      text_style: text_style.NONE,
+      text: 'Server'
+    })
+
+    const tbText= createWidget(widget.TEXT, {
+      x: px(45),
+      y: px(95),
+      w: px(120),
+      h: px(180),
+      color: 0xffffff,
+      align_h: align.CENTER_H,
+      align_v: align.CENTER_V,
+      text_style: text_style.NONE,
+      text: '3rd Set Tb'
+    })
+
+    const fullText= createWidget(widget.TEXT, {
+      x: px(30),
+      y: px(120),
+      w: px(120),
+      h: px(180),
+      color: 0xffffff,
+      align_h: align.CENTER_H,
+      align_v: align.CENTER_V,
+      text_style: text_style.NONE,
+      text: 'Full'
+    })
+
+    const meText= createWidget(widget.TEXT, {
+      x: px(145),
+      y: px(95),
+      w: px(120),
+      h: px(180),
+      color: 0xffffff,
+      align_h: align.CENTER_H,
+      align_v: align.CENTER_V,
+      text_style: text_style.NONE,
+      text: 'Me'
+    })
+
+    const oppText= createWidget(widget.TEXT, {
+      x: px(145),
+      y: px(123),
+      w: px(120),
+      h: px(180),
+      color: 0xffffff,
+      align_h: align.CENTER_H,
+      align_v: align.CENTER_V,
+      text_style: text_style.NONE,
+      text: 'Opp'
+    })
+    
+
+    const typeRadioGroup = createWidget(widget.RADIO_GROUP, {
+      x: px(0),
+      y: px(90),
+      w: px(160),
+      h: px(94),
+      unselect_src: 'selected_radio.png',
+      select_src: 'unselected_radio.png',
       check_func: (group, index, checked) => {
-        this.state.format = index === 0 ? 'full' : '3rd_breaker'
+        setupLogger.log('index', index)
+        setupLogger.log('checked', checked)
+      }
+    })
+    const serverRadioGroup = createWidget(widget.RADIO_GROUP, {
+      x: px(0),
+      y: px(90),
+      w: px(160),
+      h: px(94),
+      unselect_src: 'selected_radio.png',
+      select_src: 'unselected_radio.png',
+      check_func: (group, index, checked) => {
+        setupLogger.log('index', index)
+        setupLogger.log('checked', checked)
       }
     })
 
-    // Server selector
-    createWidget(widget.RADIO_GROUP, {
-      x: 60,
-      y: 220,
-      w: 360,
-      h: 100,
-      select_index: 0,
-      options: ['Me', 'Opponent'],
-      check_func: (group, index, checked) => {
-        this.state.server = index === 0 ? 'me' : 'opp'
-      }
+    const fullBtn= typeRadioGroup.createWidget(widget.STATE_BUTTON, {
+      x: px(51),
+      y: px(90),
+      w: px(16),
+      h: px(16)
+    })
+    const thirdTbBtn= typeRadioGroup.createWidget(widget.STATE_BUTTON, {
+      x: px(51),
+      y: px(116),
+      w: px(16),
+      h: px(16)
+    })
+    const meBtn= serverRadioGroup.createWidget(widget.STATE_BUTTON, {
+      x: px(172),
+      y: px(90),
+      w: px(16),
+      h: px(16)
+    })
+    const oppBtn= serverRadioGroup.createWidget(widget.STATE_BUTTON, {
+      x: px(172),
+      y: px(116),
+      w: px(16),
+      h: px(16)
     })
 
-    // Start button
-    var btn = createWidget(widget.BUTTON, {
-      x: 120,
-      y: 360,
-      w: 240,
-      h: 60,
-      text: 'Start Match',
+    const img = createWidget(widget.IMG, {
+      x: px(100),
+      y: px(300),
+      src: 'start_button.png'
+    })
+    img.addEventListener(event.CLICK_DOWN, (info) => {
+      setupLogger.log('start button click')
     })
 
-    btn.addEventListener(event.CLICK_DOWN, function (info) {
-      messageBuilder.request({
-        action: 'START_MATCH',
-        params: {
-          format: this.state.format,
-          server: this.state.server
-        }
-      }).then(() => {
-        push({
-          url: 'page/match/index'
-        })
-      })
-    })
+    typeRadioGroup.setProperty(prop.INIT, fullBtn)
+    serverRadioGroup.setProperty(prop.INIT, meBtn)
   }
-}) 
+})
